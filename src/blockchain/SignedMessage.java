@@ -51,7 +51,6 @@ public class SignedMessage {
 
     @Override
     public String toString() {
-//        return "Message ID: " + id + "\nMessage: " + text + "\nSignature: " + bytesToHex(signature) + "\n";
         return text;
     }
 

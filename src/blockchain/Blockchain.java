@@ -28,7 +28,7 @@ public class Blockchain {
         // Genesis block
         this.chain.add(new Block(0, System.currentTimeMillis(), 0, "0",
                 "0", 0, 0, transactions));
-        this.difficulty = 3; // Initial difficulty
+        this.difficulty = 3;
         this.startTime = System.currentTimeMillis();
         this.delegate = delegate;
         this.maxBlockNumber = maxBlockNumber;
@@ -55,7 +55,7 @@ public class Blockchain {
         String sender = transaction.getSender();
         int amount = transaction.getAmount();
         if (!balances.containsKey(sender) || balances.get(sender) < amount) {
-            return false; // Sender has insufficient balance
+            return false;
         }
         transactions.add(transaction);
         return true;
@@ -76,7 +76,7 @@ public class Blockchain {
 
     public synchronized String getPreviousHash() {
         if (this.chain.isEmpty()) {
-            return "0"; // Return "0" if there are no blocks in the blockchain
+            return "0";
         }
         return this.chain.get(this.chain.size() - 1).getHash();
     }
@@ -86,7 +86,6 @@ public class Blockchain {
         balances.put(miner, balances.get(miner) + 100);
     }
 
-    // Method to get the ID for the next block
     public synchronized int getNextBlockId() {
         return this.chain.size();
     }
@@ -110,12 +109,12 @@ public class Blockchain {
 
     private boolean isValidNewBlock(Block newBlock, Block previousBlock) {
         if (previousBlock.getId() + 1 != newBlock.getId()) {
-            return false; // Incorrect ID
+            return false;
         }
         if (!previousBlock.getHash().equals(newBlock.getPreviousHash())) {
-            return false; // Previous hash does not match
+            return false;
         }
-        return newBlock.getHash().startsWith(repeat(difficulty)); // Check hash difficulty
+        return newBlock.getHash().startsWith(repeat(difficulty));
     }
 
     private String adjustDifficulty(Block lastBlock) {
@@ -124,7 +123,7 @@ public class Blockchain {
             difficulty++;
             return "N was increased to " + difficulty + "\n";
         } else if (blockGenerationTime > 10000) {
-            difficulty = Math.max(0, difficulty - 1); // Ensure difficulty doesn't go negative
+            difficulty = Math.max(0, difficulty - 1);
             return "N was decreased by 1" + "\n";
         } else {
             return "N stays the same" + "\n";

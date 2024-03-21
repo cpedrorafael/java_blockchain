@@ -11,7 +11,6 @@ public class Transaction {
         this.amount = amount;
     }
 
-    // Getters
     public String getSender() { return sender; }
     public String getReceiver() { return receiver; }
     public int getAmount() { return amount; }
